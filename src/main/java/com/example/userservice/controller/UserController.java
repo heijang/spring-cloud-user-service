@@ -60,9 +60,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @GetMapping("/users/{}")
-    public ResponseEntity<?> getUsers() {
-        Iterable<UserEntity> userList = userService.getUserBy
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<?> getUsers(@PathVariable String userId) {
+        var userDto = userService.getUserByUserId(userId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
     }
 
 }
