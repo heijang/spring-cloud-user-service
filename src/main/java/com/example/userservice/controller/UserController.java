@@ -1,7 +1,6 @@
 package com.example.userservice.controller;
 
 import com.example.userservice.dto.UserDto;
-import com.example.userservice.jpa.UserEntity;
 import com.example.userservice.service.UserService;
 import com.example.userservice.vo.RequestUser;
 import com.example.userservice.vo.ResponseUser;
@@ -17,15 +16,20 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user-service")
 public class UserController {
     private final Environment env;
     private final UserService userService;
 
     @GetMapping("/health_check")
     public String status() {
-        return "It's Working in User Service on PORT " + env.getProperty("local.server.port");
+        return String.format("It's Working in User Service"
+                + ", port(local.server.port)=" + env.getProperty("local.server.port")
+                + ", port(server.port)=" + env.getProperty("server.port")
+                + ", token secret=" + env.getProperty("token.secret")
+                + ", token expiration time=" + env.getProperty("token.expiration_time")
+        );
     }
+
 
     @GetMapping("/welcome")
     public String welcome() {
